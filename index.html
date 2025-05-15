@@ -1,72 +1,574 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ana Sayfa</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Şanlı Yazılım - Portföy</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+<style>
+  /* Genel sıfırlamalar */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #000;
+    color: #e0eaff;
+    line-height: 1.6;
+  }
+  header {
+    position: sticky;
+    top: 0;
+    background: #011627;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    z-index: 100;
+    box-shadow: 0 2px 8px #00aaff66;
+  }
+  header .logo {
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: #00cfff;
+  }
+  header .logo span {
+    color: #fff;
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+  }
+  nav ul li a {
+    color: #aaddff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+  nav ul li a:hover,
+  nav ul li a.active {
+    color: #00ffff;
+  }
+  nav ul li a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background: #00ffff;
+    transition: width 0.3s ease;
+  }
+  nav ul li a:hover::after,
+  nav ul li a.active::after {
+    width: 100%;
+  }
+
+  section {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 0 20px;
+  }
+  section h2 {
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+    color: #00cfff;
+    text-align: center;
+    letter-spacing: 1.5px;
+  }
+
+  /* Anasayfa */
+  #anasayfa {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    margin-top: 30px;
+  }
+  #anasayfa .left {
+    flex: 1 1 450px;
+    max-width: 600px;
+  }
+  #anasayfa h1 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    color: #00d0ff;
+  }
+  #anasayfa h2 {
+    font-size: 2.4rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
+  #anasayfa h2 span {
+    color: #00ffff;
+    border-bottom: 2px solid #00ffff;
+    padding-bottom: 4px;
+  }
+  #anasayfa p {
+    margin-bottom: 25px;
+    font-size: 1.15rem;
+    color: #a0c8ffcc;
+  }
+  #anasayfa .sosyal {
+    font-size: 2rem;
+    margin-bottom: 15px;
+  }
+  #anasayfa .sosyal a {
+    margin-right: 20px;
+    color: #00ffff;
+    transition: transform 0.3s ease;
+  }
+  #anasayfa .sosyal a:hover {
+    color: #00aaff;
+    transform: scale(1.3) rotate(10deg);
+  }
+  #anasayfa button {
+    background: #00ffff;
+    color: #000;
+    font-weight: 700;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    box-shadow: 0 0 100px #00ffffaa;
+    transition: all 0.3s ease;
+  }
+  #anasayfa button:hover {
+    background: #00aaff;
+    color: #fff;
+    box-shadow: 0 0 100px #00aaffcc;
+    transform: scale(1.1) rotate(-5deg);
+  }
+  #anasayfa .right {
+    flex: 0 0 300px;
+    max-width: 300px;
+    text-align: center;
+  }
+  #anasayfa .right img {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    border: 5px solid #00ffff;
+    box-shadow: 0 0 100px #00ffffaa;
+    object-fit: cover;
+  }
+
+  /* Yazı makinesi efekti */
+  .typing-text {
+    display: inline-block;
+    border-right: 3px solid #00ffff;
+    animation: blink 1s steps(2, start) infinite;
+    font-weight: 700;
+  }
+  @keyframes blink {
+    0%, 100% { border-color: #00ffff; }
+    50% { border-color: transparent; }
+  }
+
+  /* Kart genel ayar */
+  .kartlar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+  }
+  .kart {
+    background: #011627;
+    border: 2px solid #00ffff;
+    box-shadow: 0 0 15px #00ffff88;
+    padding: 20px 25px;
+    width: 280px;
+    border-radius: 18px;
+    color: #c0eaff;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    cursor: default;
+  }
+  .kart:hover {
+    box-shadow: 0 0 35px #00ffffcc;
+    transform: rotateY(10deg) rotateZ(2deg) scale(1.05);
+  }
+  .kart h3 {
+    color: #00ffff;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+  }
+  .kart p {
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+
+  /* Eğitim */
+  #egitim {
+    margin-top: 80px;
+  }
+
+  /* Hizmetler */
+  #hizmetler {
+    margin-top: 80px;
+  }
+
+  /* Referanslar */
+  #referanslar {
+    margin-top: 80px;
+  }
+  .referanslar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+  }
+  .referans {
+    background: #011627;
+    border: 2px solid #00ffff;
+    border-radius: 18px;
+    width: 280px;
+    padding: 20px;
+    color: #c0eaff;
+    box-shadow: 0 0 100px #00ffff88;
+    text-align: center;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    cursor: default;
+  }
+  .referans:hover {
+    transform: rotateY(10deg) rotateZ(2deg) scale(1.05);
+    box-shadow: 0 0 35px #00ffffcc;
+  }
+  .referans img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 3px solid #00ffff;
+    margin-bottom: 15px;
+    object-fit: cover;
+    box-shadow: 0 0 10px #00ffffbb;
+  }
+  .referans p {
+    font-style: italic;
+    margin-bottom: 10px;
+  }
+  .referans strong {
+    color: #00ffff;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  /* İletişim */
+  #iletisim {
+    margin-top: 80px;
+    max-width: 600px;
+  }
+  #iletisim h2 {
+    margin-bottom: 30px;
+  }
+  form {
+    background: #011627;
+    padding: 30px 25px;
+    border-radius: 18px;
+    box-shadow: 0 0 30px #00ffffaa;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  form input, form textarea {
+    background: #02283a;
+    border: 2px solid #00ffff;
+    padding: 12px 15px;
+    border-radius: 12px;
+    color: #e0eaff;
+    font-size: 1rem;
+    resize: none;
+    transition: border-color 0.3s ease;
+  }
+  form input:focus, form textarea:focus {
+    border-color: #00ffffcc;
+    outline: none;
+  }
+  form button {
+    background: #00ffff;
+    border: none;
+    padding: 15px 0;
+    font-weight: 700;
+    font-size: 1.2rem;
+    border-radius: 30px;
+    color: #000;
+    cursor: pointer;
+    box-shadow: 0 0 30px #00ffffaa;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  form button:hover {
+    background: #00aaff;
+    color: #fff;
+    box-shadow: 0 0 40px #00aaffcc;
+    transform: scale(1.1) rotate(-5deg);
+  }
+
+  /* İletişim ikonları input içi */
+  .input-ikon {
+    position: relative;
+  }
+  .input-ikon i {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    color: #00ffff;
+    font-size: 1.1rem;
+  }
+  .input-ikon input, .input-ikon textarea {
+    padding-left: 35px;
+  }
+
+  /* Responsive */
+  @media(max-width: 860px) {
+    #anasayfa {
+      flex-direction: column;
+      text-align: center;
+    }
+    #anasayfa .left, #anasayfa .right {
+      max-width: 100%;
+      flex: 1 1 100%;
+    }
+    nav ul {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+   }
+/* Hamburger menü */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: #00ffff;
+  cursor: pointer;
+}
+
+@media (max-width: 860px) {
+  .hamburger {
+    display: block;
+  }
+
+  nav ul {
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+    background: #011627;
+    position: absolute;
+    top: 70px;
+    right: 30px;
+    width: 100px;
+    padding: 20px;
+    border: 2px solid #00ffff;
+    border-radius: 12px;
+    box-shadow: 0 0 15px #00ffff88;
+    z-index: 99;
+  }
+
+  nav ul.active {
+    display: flex;
+  }
+}
+.header {
+  padding: 20px;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column; /* Mobilde üst üste */
+  align-items: center;
+  gap: 20px;
+ }
+}
+</style>
 </head>
 <body>
 
-  <!-- Menü kısmı (dokunulmuyor) -->
-  <header>
-    <div class="logo">
-<img src=https://web-tasarim.tr/i/logo.svg>
+<header>
+   <div class="logo"><span>Şanlı</span> Yazılım</div>
+  <button class="hamburger" aria-label="Menüyü Aç/Kapat">
+  <i class="fas fa-bars"></i>
+</button>
+
+  <nav>
+    <ul>
+      <li><a href="#anasayfa" class="active">Anasayfa</a></li>
+      <li><a href="#egitim">Eğitim</a></li>
+      <li><a href="#hizmetler">Hizmetler</a></li>
+      <li><a href="#referanslar">Referanslar</a></li>
+      <li><a href="#iletisim">İletişim</a></li>
+    </ul>
+  </nav>
+</header> 
+<section id="anasayfa">
+<div class="left">
+    <h1>Şanlı Yazılıma Hoş Geldiniz</h1>
+<h2>Ben <span class="yazimakinesi"></span></h2>
+    <p>
+      Yazılımla tanışmam lise yıllarında başladı. Üniversite eğitimimle birlikte bu alanda ciddi bir şekilde ilerledim. Web teknolojilerine olan ilgim beni front-end ve back-end taraflarında geliştirdi. Mobil uyumlu ve kullanıcı dostu tasarımlar yapmayı seviyorum. Takım çalışmasına uygun ve disiplinli bir yapıya sahibim. Müşteri memnuniyeti benim için en önemli değerlerden biridir.
+    </p>
+    <div class="sosyal">
+      <a href="#" aria-label="Instagram" title="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="WhatsApp" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="#" aria-label="Telegram" title="Telegram"><i class="fab fa-telegram"></i></a>
     </div>
-    <nav class="navbar">
-      <a href="index.html">Ana Sayfa</a>
-      <a href="hakkimda.html">Hakkımda</a>
-      <a href="yeteneklerim.html">Yeteneklerim</a>
-      <a href="portfoyum.html">Portföyüm</a>
-      <a href="iletisim.html">İletişim</a>
-    </nav>
-  </header>
+    <button onclick="document.getElementById('iletisim').scrollIntoView({behavior:'smooth'})">Bana Ulaş</button>
+  </div>
+  <div class="right">
+    <img src="https://img.freepik.com/premium-vector/sy-letter-logo-design-black-background-initial-monogram-letter-sy-logo-design-vector-template_634196-1214.jpg?w=360" alt="Profil Fotoğrafı" />
+  </div>
+</section>
 
-  <!-- Hoş Geldiniz Kısmı -->
-  <section class="hero">
-    <h1>Sitemize Hoş Geldiniz</h1>
-  </section>
-
-
-  <!-- Hizmetler -->
-  <section class="services">
-    <h2>Sunduğum Hizmetler</h2>
-    <div class="card-container">
-      <div class="card">
-        <h3>Web Tasarımı</h3>
-        <p>Modern ve kullanıcı dostu web tasarımları.</p>
-      </div>
-      <div class="card">
-        <h3>Responsive Tasarım</h3>
-        <p>Mobil cihazlara tam uyumlu siteler.</p>
-      </div>
-      <div class="card">
-        <h3>Bakım & Destek</h3>
-        <p>Siteniz için sürekli destek ve bakım.</p>
-      </div>
+<section id="egitim">
+  <h2>Eğitim</h2>
+  <div class="kartlar">
+    <div class="kart">
+      <h3>2017 – Lise</h3>
+      <p>Yazılımla ilk kez tanıştığım dönem. Temel programlama bilgileri ve teknolojiye olan ilgim burada başladı.</p>
     </div>
-  </section>
-
-  <!-- Projeler -->
-  <section class="projects">
-    <h2>Yaptığım Projeler</h2>
-    <div class="card-container">
-      <div class="card">
-        <h3>Portföy Sitesi</h3>
-        <p>Kendi tanıtımım için sade bir web sitesi.</p>
-      </div>
-      <div class="card">
-        <h3>Kafe Web Sitesi</h3>
-        <p>Canlı ve etkileyici tasarıma sahip bir kafe sitesi.</p>
-      </div>
-      <div class="card">
-        <h3>Güzellik Salonu</h3>
-        <p>Bakım ve güzellik temalı bir vitrin sitesi.</p>
-      </div>
+    <div class="kart">
+      <h3>2021 – Üniversite</h3>
+      <p>Bilgisayar mühendisliği eğitimi ile yazılım geliştirme, algoritmalar ve veri yapıları üzerine yoğunlaştım.</p>
     </div>
-  </section>
-  <footer class="site-footer">
-  <p>© 2025 Yunus Şanlı | Tüm hakları saklıdır.</p>
-</footer>
-</body>
-</html>
+    <div class="kart">
+      <h3>2024 – Yüksek Lisans</h3>
+      <p>Yapay zekâ ve ileri seviye yazılım projeleri üzerine akademik çalışmalarımı tamamladım.</p>
+    </div>
+    <div class="kart">
+      <h3>2025 – İş Hayatı</h3>
+      <p>Profesyonel dünyada freelance ve ekip projelerinde aktif rol alarak sektörde deneyim kazandım.</p>
+    </div>
+  </div>
+</section>
+
+  <section id="hizmetler">
+  <h2>Hizmetler</h2>
+  <div class="kartlar">
+    <div class="kart">
+      <h3>Web Sitesi Tasarımı</h3>
+      <p>Modern, hızlı ve SEO uyumlu web siteleri tasarlıyor, mobil uyumlu çözümler sunuyorum.</p>
+    </div>
+    <div class="kart">
+      <h3>Mobil Uygulama Geliştirme</h3>
+      <p>Android ve iOS platformları için kullanıcı dostu, performanslı mobil uygulamalar geliştiriyorum.</p>
+    </div>
+    <div class="kart">
+      <h3>E-Ticaret Çözümleri</h3>
+      <p>Online satış yapan işletmeler için güvenli ve ölçeklenebilir e-ticaret sistemleri oluşturuyorum.</p>
+    </div>
+    <div class="kart">
+      <h3>Danışmanlık ve Destek</h3>
+      <p>Yazılım süreçlerinde danışmanlık veriyor, teknik destek ve eğitim hizmetleri sağlıyorum.</p>
+    </div>
+  </div>
+</section>
+
+<section id="referanslar">
+  <h2>Referanslar</h2>
+  <div class="referanslar">
+    <div class="referans">
+      <img src="ahmet.jpg" alt="Ahmet" />
+      <p>"Şanlı Yazılım ile çalışmak tam bir keyifti. Projem tam zamanında ve beklentilerimin üstünde teslim edildi."</p>
+      <strong>Ahmet</strong>
+    </div>
+    <div class="referans">
+      <img src="efe.jpg" alt="Efe" />
+      <p>"Mobil uygulama geliştirme konusunda gösterdikleri profesyonellik sayesinde işlerim hız kazandı."</p>
+      <strong>Efe</strong>
+    </div>
+    <div class="referans">
+      <img src="yasin.jpg" alt="Yasin" />
+      <p>"Teknik bilgi ve iletişim becerileri harikaydı. Her zaman çözüm odaklı yaklaştılar."</p>
+      <strong>Yasin</strong>
+    </div>
+  </div>
+</section>
+
+<section id="iletisim">
+  <h2>Bana Ulaş</h2>
+  <form>
+    <div class="input-ikon">
+      <i class="fas fa-user"></i>
+      <input type="text" name="ad" placeholder="Adınız" required />
+    </div>
+    <div class="input-ikon">
+      <i class="fas fa-envelope"></i>
+      <input type="email" name="email" placeholder="E-posta adresiniz" required />
+    </div>
+    <div class="input-ikon">
+      <i class="fas fa-phone"></i>
+      <input type="tel" name="telefon" placeholder="Telefon numaranız" />
+    </div>
+    <div class="input-ikon">
+      <i class="fas fa-tag"></i>
+      <input type="text" name="konu" placeholder="Konu" required />
+    </div>
+    <div class="input-ikon">
+      <i class="fas fa-comment"></i>
+      <textarea name="mesaj" rows="5" placeholder="Mesajınız" required></textarea>
+    </div>
+    <button type="submit"><i class="fas fa-paper-plane"></i> Gönder</button>
+  </form>
+<script>
+ const words = ["Web Sitesi", "Mobil Uyumlu", "SEO Dostu", "Hızlı", "Güvenilir", "Profesyonel"];
+const typingSpan = document.querySelector('.yazimakinesi');
+
+let wordIndex = 0;
+let letterIndex = 0;
+let currentWord = '';
+let isDeleting = false;
+let typingSpeed = 150;
+let deletingSpeed = 100;
+let pauseTime = 1500;
+
+function type() {
+  if (wordIndex >= words.length) {
+    wordIndex = 0;
+  }
+  currentWord = words[wordIndex];
+
+  if (!isDeleting) {
+    typingSpan.classList.add('typing-text');
+    typingSpan.textContent = currentWord.substring(0, letterIndex + 1);
+    letterIndex++;
+
+    if (letterIndex === currentWord.length) {
+      isDeleting = true;
+      setTimeout(type, pauseTime);
+    } else {
+      setTimeout(type, typingSpeed);
+    }
+  } else {
+    typingSpan.textContent = currentWord.substring(0, letterIndex - 1);
+    letterIndex--;
+
+    if (letterIndex === 0) {
+      isDeleting = false;
+      wordIndex++;
+      setTimeout(type, typingSpeed);
+    } else {
+      setTimeout(type, deletingSpeed);
+    }
+  }
+}
+type();
+  const hamburger = document.querySelector('.hamburger');
+  const menu = document.querySelector('nav ul');
+
+  hamburger.addEventListener('click', () => {
+    menu.classList.toggle('active');
+  });
+
+</script>
+
+
+
+
