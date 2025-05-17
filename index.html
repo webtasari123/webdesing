@@ -4,8 +4,11 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Şanlı Yazılım - Portföy</title>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
 <style>
+  html { scroll-behavior: smooth; }
+
   /* Genel sıfırlamalar */
   * {
     margin: 0; padding: 0; box-sizing: border-box;
@@ -387,13 +390,186 @@
   align-items: center;
   gap: 20px;
  }
+.menu-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
+
+.brand-name {
+  font-size: 22px;
+  font-weight: 600;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Klasik ve sade */
+}
+
+.logo-icon {
+  height: 30px;         /* Menüye uygun küçük boy */
+  width: auto;          /* Oranı bozulmaz */
+  animation: rotateIn 1s ease-in-out;
+  transition: transform 0.3s, filter 0.3s;
+  filter: drop-shadow(0 0 4px #00aaff); /* Parlak mavi ışıltı */
+}
+
+.logo-icon:hover {
+  transform: scale(1.2);
+  filter: brightness(150%);
+}
+
+@keyframes rotateIn {
+  0% {
+    transform: rotate(-360deg) scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+    opacity: 1;
+  }
+}
+
+.menu-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-name {
+  font-size: 22px;
+  font-weight: 600;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.brand-name .white {
+  color: white;
+}
+
+.brand-name .blue {
+  color: #00aaff; /* Parlak mavi */
+}
+
+.logo-icon {
+  height: 30px;
+  width: auto;
+  animation: rotateIn 1s ease-in-out;
+  transition: transform 0.3s, filter 0.3s;
+  filter: drop-shadow(0 0 4px #00aaff);
+}
+
+.logo-icon:hover {
+  transform: scale(1.2);
+  filter: brightness(150%);
+}
+
+@keyframes rotateIn {
+  0% {
+    transform: rotate(-360deg) scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+    opacity: 1;
+  }
+}
+.homepage-logo {
+  height: 100px; /* İstediğin boyuta göre ayarla */
+  animation: spinLogo 5s linear infinite;
+}
+
+@keyframes spinLogo {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Genel fade-in ve hafif yukarıdan aşağı hareket */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* Kartlar başlangıçta küçük ve saydam */
+.kart {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 8px rgba(0, 170, 255, 0.2);
+  border-radius: 12px;
+}
+
+/* Kartlar görünürken normal boyutta ve hafif glow */
+.kart.visible {
+  opacity: 1;
+  transform: scale(1);
+  box-shadow: 0 0 15px rgba(0, 170, 255, 0.5);
+}
+
+/* Kart hover’da glow ve büyüme */
+.kart:hover {
+  box-shadow: 0 0 25px rgba(0, 170, 255, 0.8);
+  transform: scale(1.05);
+}
+#anasayfa {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 5%;
+  gap: 20px;
+}
+
+#anasayfa .left {
+  flex: 1;
+  min-width: 280px;
+}
+
+#anasayfa .right {
+  flex: 1;
+  text-align: right;
+}
+
+.homepage-logo {
+  max-width: 250px;
+  width: 100%;
+  height: auto;
+  transition: all 0.4s ease;
+}
+
+/* Mobil görünüm için */
+@media (max-width: 900px) {
+  #anasayfa {
+    flex-direction: column-reverse;
+    text-align: center;
+  }
+
+  #anasayfa .right {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .homepage-logo {
+    max-width: 180px;
+    margin: 0 auto;
+  }
+}
+
 </style>
 </head>
-<body>
-
+  <body>
 <header>
-   <div class="logo"><span>Şanlı</span> Yazılım</div>
+<div class="menu-logo">
+  <span class="brand-name">
+    <span class="white">Şanlı</span> <span class="blue">Yazılım</span>
+  </span>
+  <img src="https://img.freepik.com/premium-vector/sy-letter-logo-design-black-background-initial-monogram-letter-sy-logo-design-vector-template_634196-1214.jpg?w=360" class="logo-icon" alt="Logo">
+</div>
+
   <button class="hamburger" aria-label="Menüyü Aç/Kapat">
   <i class="fas fa-bars"></i>
 </button>
@@ -423,7 +599,7 @@
     <button onclick="document.getElementById('iletisim').scrollIntoView({behavior:'smooth'})">Bana Ulaş</button>
   </div>
   <div class="right">
-    <img src="https://img.freepik.com/premium-vector/sy-letter-logo-design-black-background-initial-monogram-letter-sy-logo-design-vector-template_634196-1214.jpg?w=360" alt="Profil Fotoğrafı" />
+    <img src="https://img.freepik.com/premium-vector/sy-letter-logo-design-black-background-initial-monogram-letter-sy-logo-design-vector-template_634196-1214.jpg?w=360" alt="Logo" class="homepage-logo">
   </div>
 </section>
 
@@ -494,29 +670,21 @@
 
 <section id="iletisim">
   <h2>Bana Ulaş</h2>
-  <form>
-    <div class="input-ikon">
-      <i class="fas fa-user"></i>
-      <input type="text" name="ad" placeholder="Adınız" required />
-    </div>
-    <div class="input-ikon">
-      <i class="fas fa-envelope"></i>
-      <input type="email" name="email" placeholder="E-posta adresiniz" required />
-    </div>
-    <div class="input-ikon">
-      <i class="fas fa-phone"></i>
-      <input type="tel" name="telefon" placeholder="Telefon numaranız" />
-    </div>
-    <div class="input-ikon">
-      <i class="fas fa-tag"></i>
-      <input type="text" name="konu" placeholder="Konu" required />
-    </div>
-    <div class="input-ikon">
-      <i class="fas fa-comment"></i>
-      <textarea name="mesaj" rows="5" placeholder="Mesajınız" required></textarea>
-    </div>
-    <button type="submit"><i class="fas fa-paper-plane"></i> Gönder</button>
-  </form>
+  <form action="https://formsubmit.co/yunussanli13@gmail.com" method="POST">
+    <form action="https://formsubmit.co/seninmailin@example.com" method="POST">
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_template" value="box">
+  <input type="hidden" name="_next" value="https://seninsiten.com/tesekkur.html">
+
+  <input type="text" name="ad" placeholder="Adınız" required>
+  <input type="email" name="email" placeholder="E-posta adresiniz" required>
+  <input type="tel" name="telefon" placeholder="Telefon numaranız">
+  <input type="text" name="konu" placeholder="Konu" required>
+  <textarea name="mesaj" placeholder="Mesajınız" required></textarea>
+
+  <button type="submit">Gönder</button>
+</form>
+
 <script>
  const words = ["Web Sitesi", "Mobil Uyumlu", "SEO Dostu", "Hızlı", "Güvenilir", "Profesyonel"];
 const typingSpan = document.querySelector('.yazimakinesi');
@@ -565,6 +733,26 @@ type();
 
   hamburger.addEventListener('click', () => {
     menu.classList.toggle('active');
+  });
+document.addEventListener("DOMContentLoaded", () => {
+    // Body ve tüm sectionlar fade-in ve yukarıdan aşağı animasyonu
+    const fadeElements = document.querySelectorAll("body > *:not(script):not(style), section");
+    fadeElements.forEach(el => {
+      el.classList.add("fade-in-up");
+      // Kısa süre sonra görünür yap
+      setTimeout(() => {
+        el.style.opacity = 1;
+        el.style.transform = "translateY(0)";
+      }, 100);
+    });
+
+    // Kartları sırayla görünür yap
+    const kartlar = document.querySelectorAll(".kart");
+    kartlar.forEach((kart, i) => {
+      setTimeout(() => {
+        kart.classList.add("visible");
+      }, 500 + i * 250); // 500ms gecikme, her kart arası 250ms
+    });
   });
 
 </script>
